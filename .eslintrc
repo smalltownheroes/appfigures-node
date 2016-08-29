@@ -1,0 +1,20 @@
+{
+	"parser": "babel-eslint",
+	"rules": {
+		"strict": 0,
+		"indent": ["error", "tab", { "SwitchCase": 1, "VariableDeclarator": 1 }],
+		"max-len": ["warn", 120, 2, {"ignoreUrls": true}],
+		"padded-blocks": ["off"],
+		"no-underscore-dangle": ["warn", { "allowAfterThis": true }],
+		"no-multi-spaces": ["error", {"exceptions": {"VariableDeclarator": true}}],
+		"no-unused-vars": ["warn", { "vars": "local", "args": "after-used" }],
+	},
+	"env": {
+		"mocha": true
+	},
+	"globals": {
+		"expect": true,
+		"assert": true,
+		"mockStore": true
+	}
+}
