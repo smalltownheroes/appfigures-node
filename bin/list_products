@@ -1,0 +1,28 @@
+#!/bin/bash
+#change these
+
+#https://gist.github.com/pingyen
+#http://docs.appfigures.com/api/reference/v2/oauth
+#http://docs.appfigures.com/api/reference/v2/sales
+#http://docs.appfigures.com/code-samples
+
+
+BASE='https://api.appfigures.com/v2/'
+
+CLIENT_KEY=${APPFIGURES_CLIENT_KEY}
+CLIENT_SECRET=${APPFIGURES_CLIENT_SECRET}
+
+ACCESS_TOKEN=${APPFIGURES_ACCESS_TOKEN}
+ACCESS_SECRET=${APPFIGURES_ACCESS_SECRET}
+
+function list_products {
+
+curl -XGET -v $BASE"products/mine" \
+        -H"Authorization: OAuth oauth_signature_method=PLAINTEXT,
+                                oauth_consumer_key=${CLIENT_KEY},
+                                oauth_token=${ACCESS_TOKEN},
+                                oauth_signature=${CLIENT_SECRET}&${ACCESS_SECRET}"
+
+}
+
+list_products

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+BASE='https://api.appfigures.com/v2/'
+
+CLIENT_KEY=${APPFIGURES_CLIENT_KEY}
+CLIENT_SECRET=${APPFIGURES_CLIENT_SECRET}
+
+ACCESS_TOKEN=${APPFIGURES_ACCESS_TOKEN}
+ACCESS_SECRET=${APPFIGURES_ACCESS_SECRET}
+
+PRODUCTS=${APPFIGURES_PRODUCTS}
+
+function get_usage {
+
+curl -XGET -v $BASE"/reports/usage?storefront=google_analytics&group_by=date&granulatity=daily&start_date=2016-08-20&end_date=2016-08-28&products=${PRODUCTS}" \
+        -H"Authorization: OAuth oauth_signature_method=PLAINTEXT,
+                                oauth_consumer_key=${CLIENT_KEY},
+                                oauth_token=${ACCESS_TOKEN},
+                                oauth_signature=${CLIENT_SECRET}&${ACCESS_SECRET}"
+
+}
+
+get_usage

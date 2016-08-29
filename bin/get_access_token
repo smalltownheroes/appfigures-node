@@ -1,0 +1,57 @@
+#!/bin/bash
+#change these
+
+#https://gist.github.com/pingyen
+#http://docs.appfigures.com/api/reference/v2/oauth
+#http://docs.appfigures.com/api/reference/v2/sales
+#http://docs.appfigures.com/code-samples
+
+
+CLIENT_KEY=${APPFIGURES_CLIENT_KEY}
+CLIENT_SECRET=${APPFIGURES_CLIENT_SECRET}
+
+BASE='https://api.appfigures.com/v2/'
+
+function get_token {
+
+# https://gist.github.com/pingyen/ba1dc0a4939ba3ca06e9fc6d70e37b63
+# Add content-length=0 otherwise it barfs
+# get and parse Request Token
+OUTPUT=$(curl -v -XPOST $BASE'oauth/request_token' \
+       -H"Authorization: OAuth oauth_signature_method=PLAINTEXT, 
+                                oauth_consumer_key=${CLIENT_KEY}, 
+                                oauth_callback=oob, 
+                                oauth_signature=${CLIENT_SECRET}&" \
+       -H'X-OAuth-Scope: private:read, products:read' \
+       -H 'Content-Length: 0')
+
+
+REQUEST_TOKEN=`echo $OUTPUT |  sed 's/.*oauth_token=\([^&]*\).*/\1/'`
+REQUEST_SECRET=`echo $OUTPUT |  sed 's/.*oauth_token_secret=\([^&]*\).*/\1/'`
+#
+## Forward to be authorized and get verifier
+echo "Go to ${BASE}oauth/authorize?oauth_token=$REQUEST_TOKEN to get your code."
+
+read -p'verifier:' VERIFIER
+#
+##Exchange Request Token for Access Token
+OUTPUT="$(curl -v -XGET $BASE'oauth/access_token' \
+       -H"Authorization: OAuth oauth_signature_method=PLAINTEXT,
+                                oauth_verifier=${VERIFIER},
+                                oauth_consumer_key=${CLIENT_KEY}, 
+                                oauth_token=${REQUEST_TOKEN},
+                                oauth_signature=${CLIENT_SECRET}&${REQUEST_SECRET}"
+        )"
+
+echo $OUTPUT
+
+ACCESS_TOKEN=`echo $OUTPUT |  sed 's/.*oauth_token=\([^&]*\).*/\1/'`
+ACCESS_SECRET=`echo $OUTPUT |  sed 's/.*oauth_token_secret=\([^&]*\).*/\1/'`
+
+
+echo $ACCESS_TOKEN
+echo $ACCESS_SECRET
+
+}
+
+get_token
