@@ -13,8 +13,6 @@ const config = {
 	api_url: process.env.APPFIGURES_API_URL,
 };
 
-console.log('--------------->', config);
-
 describe('Client', () => {
 
 	const client = new Client(config);
@@ -84,7 +82,7 @@ describe('Client', () => {
 		this.timeout(5000);
 		client.getDailyRankings(['41681440814'], '2016-08-15', '2016-09-01', (err, rankings) => {
 			if (err) return done(err);
-			console.log('--------------->', rankings);
+			// console.log('--------------->', rankings);
 			done()
 		});
 	});
