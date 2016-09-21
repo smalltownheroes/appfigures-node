@@ -10,12 +10,12 @@
     "lint": "eslint lib/** test/**"
   },
   "dependencies": {
-    "request": "^2.74.0"
+    "request": "^2.75.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "chai": "^3.5.0",
-    "eslint": "^3.4.0",
+    "eslint": "^3.5.0",
     "mocha": "^3.0.2"
   }
 }

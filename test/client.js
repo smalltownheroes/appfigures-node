@@ -13,6 +13,8 @@ const config = {
 	api_url: process.env.APPFIGURES_API_URL,
 };
 
+console.log('--------------->', config);
+
 describe('Client', () => {
 
 	const client = new Client(config);
@@ -57,13 +59,14 @@ describe('Client', () => {
 
 	it('gets oauth headers', function() {
 		const oauthHeader = client.getAuthorizationHeader();
+		console.log('--------------->', oauthHeader);
 	});
 
 	it ('gets downloads for product', function(done) {
 		this.timeout(5000);
 		client.getDownloads(['41680843951', '41681440814'], '2015-10-01', '2016-09-01', (err, downloads) => {
 			if (err) return done(err);
-			console.log('--------------->', downloads);
+			// console.log('--------------->', downloads);
 			done()
 		});
 	});
@@ -72,7 +75,16 @@ describe('Client', () => {
 		this.timeout(5000);
 		client.getUsage(['225289471338'], '2015-10-01', '2016-09-01', (err, usage) => {
 			if (err) return done(err);
-			console.log('--------------->', usage);
+			// console.log('--------------->', usage);
+			done()
+		});
+	});
+
+	it ('gets rankings for product', function(done) {
+		this.timeout(5000);
+		client.getDailyRankings(['41681440814'], '2016-08-15', '2016-09-01', (err, rankings) => {
+			if (err) return done(err);
+			console.log('--------------->', rankings);
 			done()
 		});
 	});
