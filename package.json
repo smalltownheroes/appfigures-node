@@ -1,10 +1,13 @@
 {
   "name": "appfigures-node",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Appfigures node.js client",
   "author": "Small Town Heroes <hello@smalltownheroes.be>",
   "license": "ISC",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://npm2.smalltownheroes.be/"
+  },
   "scripts": {
     "test": "mocha --require test/index.js",
     "lint": "eslint lib/** test/**"
